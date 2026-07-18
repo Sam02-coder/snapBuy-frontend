@@ -1,0 +1,71 @@
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
+@import "tailwindcss";
+
+/*
+  Design direction (carries through every page built from Day 22 onward):
+  - "Marketplace ledger" concept - the visual language of a well-run market
+    stall's signage: honest, legible, a little tactile, never slick/corporate.
+  - Ink/paper for structure, navy for trust & primary actions, marigold as
+    the one accent spent on things that matter (CTAs, active stock, sale badges).
+  - Fraunces (display) carries personality on headings only, used with
+    restraint. Manrope (body/UI) does the heavy lifting - warmer than Inter
+    without being unusual enough to hurt legibility in dense admin tables.
+    IBM Plex Mono for anything numeric that benefits from tabular alignment:
+    prices, order IDs, SKUs, quantities.
+  - Signature element: a "ticket stub" perforated divider (see .stub-divider
+    utility below) used sparingly on order summaries and receipts.
+*/
+
+@theme {
+  --color-ink: #16181d;
+  --color-ink-soft: #4b4f58;
+  --color-paper: #faf9f6;
+  --color-paper-raised: #ffffff;
+  --color-navy: #1f2a44;
+  --color-navy-hover: #172038;
+  --color-marigold: #e2a400;
+  --color-marigold-soft: #fbeecb;
+  --color-sage: #4c7a5b;
+  --color-sage-soft: #e4ede7;
+  --color-clay: #b4443a;
+  --color-clay-soft: #f6e3e1;
+  --color-line: #e4e1d8;
+
+  --font-display: "Fraunces", ui-serif, Georgia, serif;
+  --font-sans: "Manrope", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+}
+
+body {
+  background-color: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+}
+
+/* Signature element - a perforated "ticket stub" divider for receipts/order summaries. */
+.stub-divider {
+  position: relative;
+  border-top: 1px dashed var(--color-line);
+}
+.stub-divider::before,
+.stub-divider::after {
+  content: "";
+  position: absolute;
+  top: -8px;
+  width: 16px;
+  height: 16px;
+  border-radius: 9999px;
+  background: var(--color-paper);
+}
+.stub-divider::before { left: -8px; }
+.stub-divider::after { right: -8px; }
+
+/* Respect reduced-motion preferences everywhere. */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
